@@ -1,9 +1,12 @@
 import static org.junit.jupiter.api.Assertions.*;
-
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+@Disabled
 class PrimitivesTest {
 
+	
+	
 	@Test
 	void DataTypetest() {
 		int b = 10;
@@ -17,6 +20,7 @@ class PrimitivesTest {
 		
 		assertEquals(-15, b2);
 	}
+		
 	@Test
 	void operatorstest() {
 		int a=10;
