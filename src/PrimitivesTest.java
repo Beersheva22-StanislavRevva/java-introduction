@@ -34,7 +34,7 @@ class PrimitivesTest {
 		assertEquals(1, getFirstDigit(number));
 	}
 	
-	// Assumption: all three methods take number containing of three
+// Assumption: all three methods take number containing of three
 	private int getFirstDigit(int number) {
 		
 		return number / 100 %10;

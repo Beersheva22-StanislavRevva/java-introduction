@@ -6,6 +6,7 @@
  */
 
 public class BitOperations {
+	
 /**	
 *	
 * @param number - any number	
