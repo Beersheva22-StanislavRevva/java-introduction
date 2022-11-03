@@ -44,12 +44,26 @@ return res;
 
 static public long setBitValue(long number, int nBit, boolean value) {
 	//TODO
-	if (value == false)
-	{
-	long mask = 1 << nBit; //all bits are 0, exept bit with number n Bit
-	number = number ^ mask;} //revert n Bit
-	return number;
+	//if (value == false)
+	//{
+	//long mask = 1 << nBit; //all bits are 0, exept bit with number n Bit
+	//number = number ^ mask;} //revert n Bit
+	//return number;
+	
+long res = -1;
+	if (checkNbit (nBit)) {
+		if (value == false) {
+			long mask = 1 << nBit; //all bits are 0, exept bit with number n Bit
+			res = number ^ mask; //
+		}
+		else {res = number;
+		}
+	}
+	return res;
 }
+			
+	
+
 
 
 
