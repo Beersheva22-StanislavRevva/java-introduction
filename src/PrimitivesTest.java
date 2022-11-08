@@ -50,7 +50,8 @@ class PrimitivesTest {
 		return number %10;
 	}
 	
-	@Test	
+	@Test
+	@Disabled
 	void getBitValueTest() {
 		long number = 0xab7f5; //001110101011011111_1_10101
 		assertEquals(1, BitOperations.getBitValue(number, 5));
@@ -89,6 +90,7 @@ class PrimitivesTest {
 	//ДЗ - написать 3 теста по функциям из Numbers.java + апликация Спортлото
 	
 	@Test
+	@Disabled
 	void digitsNumberTest () {
 	long number = 0xab7f5;
 	assertEquals(14, BitOperations.onesInNumber(number));
@@ -97,6 +99,7 @@ class PrimitivesTest {
 	}	
 		
 	@Test
+	@Disabled
 	void leadingZerosTest () {
 	long number = 0xab7f5;
 	assertEquals(44, BitOperations.leadingZeros(number));
@@ -105,13 +108,38 @@ class PrimitivesTest {
 	}
 	
 	@Test
+	@Disabled
 	void isHappyNumberTest() {
 	int number = 111111;
-	assertEquals(true, Numbers.isHappyNumber(number));
+	assertTrue(Numbers.isHappyNumber(number));
 	number = 560803;
-	assertEquals(true, Numbers.isHappyNumber(number));
+	assertTrue(Numbers.isHappyNumber(number));
 	number = 111801;
-	assertEquals(false, Numbers.isHappyNumber(number));
+	assertFalse(Numbers.isHappyNumber(number));
+	}
+	
+	@Test
+	@Disabled
+	void getDigitsTest() {
+		int expected[] = {1, 2, 3, 4};
+		assertArrayEquals(expected,Numbers.getDigits(1234));
+	}
+	@Test
+	@Disabled	
+	void getNumberFromDigitsTest() {
+		int expectedNumber = 1234;
+		
+		assertEquals(expectedNumber, Numbers.getNumberFromDigits(new int[]{1, 2, 3, 4}));
+	}
+	
+	@Test
+	void VerifyNumberTest() {
+	int id = 123456782;
+	assertTrue(IsraelIdentity.verify(id));
+	id = 123456783;
+	assertFalse(IsraelIdentity.verify(id));
+	id = 12344;
+	assertFalse(IsraelIdentity.verify(id));
 	}
 	
 }
