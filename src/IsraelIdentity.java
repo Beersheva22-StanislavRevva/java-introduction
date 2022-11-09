@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 public class IsraelIdentity {
 
@@ -49,7 +50,7 @@ public static boolean verify(int id) {
 
 
 public static int generateRandomId() {
-int separatedIdRandom [] = {0, 0, 0, 0, 0, 0, 0, 0, 0}; 
+int separatedIdRandom [] = new int [1];
 int sum = 0;
 int id = 0;
 int random = 0;
@@ -58,7 +59,8 @@ int maxDigit = 9;
 
 for(int i = 0; i < (idNumberDigits - 1); i++) {
 random = (int) ((minDigit + Math.random() * (maxDigit - minDigit -1)));
-separatedIdRandom[i] = random;
+separatedIdRandom [separatedIdRandom.length - 1] = random;
+separatedIdRandom = Arrays.copyOf(separatedIdRandom, (separatedIdRandom.length + 1));
 }
 
 while (separatedIdRandom[0] == 0) {
