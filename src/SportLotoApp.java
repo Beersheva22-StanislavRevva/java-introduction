@@ -11,15 +11,13 @@ public class SportLotoApp {
 	 */
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		//System.out.print(" "+ 100 + " " + 200);
-		for (int i=0; i < 6; i++) {
+	//TODO Auto-generated method stub
+
+	for (int i=0; i < 6; i++) {
 			
-			System.out.print(getUniqueRandomInt(1, 49) + " ");
+	System.out.print(getUniqueRandomInt(1, 9) + " ");
 			
-			//System.out.print(getRandomInt(1, 49) + " ");
-			//System.out.print(ThreadLocalRandom.current().nextInt(1,49) + " ");
-		}
+	}
 	}
 public static int getUniqueRandomInt(int min, int max) {
 	int res = 0;
@@ -30,8 +28,5 @@ public static int getUniqueRandomInt(int min, int max) {
 	return res;
 	}
 	
-	//public static int getRandomInt2(int min, int max) {
-	//return (int) (min + Math.random() * (max - min -1));
-	//}
 }
 	

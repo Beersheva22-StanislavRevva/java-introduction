@@ -2,7 +2,8 @@
 public class IsraelIdentity {
 
 private static int idNumberDigits = 9;
-	
+
+
 /**
  * 	
  * @param id
@@ -15,20 +16,19 @@ private static int idNumberDigits = 9;
 	
 	
 public static boolean verify(int id) {
-	//TODO
-	int res1[];
+	int separatedId[];
 	int sum = 0;
 	if (Numbers.getNdigits(id) == idNumberDigits) {
-		res1 = Numbers.getDigits(id);
+		separatedId = Numbers.getDigits(id);
 		for(int i = 0; i < idNumberDigits; i++) {
 			if (i % 2 > 0) {
-				if (res1[i] > 4)
+				if (separatedId[i] > 4)
 					{
-					res1[i] = ((res1[i] * 2) % 10 + 1);
+					sum += ((separatedId[i] * 2) % 10 + 1);
 					}
-				else res1[i] = res1[i] * 2;
+				else sum += separatedId[i] * 2;
 		 	}
-		 sum += res1[i];
+			else sum += separatedId[i];
 		 }
 			
 		if (sum %10 == 0) 
@@ -49,8 +49,43 @@ public static boolean verify(int id) {
 
 
 public static int generateRandomId() {
-	
-return 0;
+int separatedIdRandom [] = {0, 0, 0, 0, 0, 0, 0, 0, 0}; 
+int sum = 0;
+int id = 0;
+int random = 0;
+int minDigit = 0;
+int maxDigit = 9;
+
+for(int i = 0; i < (idNumberDigits - 1); i++) {
+random = (int) ((minDigit + Math.random() * (maxDigit - minDigit -1)));
+separatedIdRandom[i] = random;
+}
+
+while (separatedIdRandom[0] == 0) {
+	random = SportLotoApp.getUniqueRandomInt(0,10);
+	separatedIdRandom[0] = random;
+}
+
+for(int i = 0; i < (idNumberDigits - 1); i++) {
+	if (i % 2 > 0) {
+		if (separatedIdRandom[i] > 4)
+			sum += ((separatedIdRandom[i] * 2) % 10 + 1);
+			
+		else sum += separatedIdRandom[i] * 2;
+	}	
+	else sum += separatedIdRandom[i];
+	}
+
+if ((sum % 10) > 0)
+	separatedIdRandom[(idNumberDigits - 1)] =(10 - (sum % 10));
+
+id = Numbers.getNumberFromDigits(separatedIdRandom);
+
+/*for(int i=0; i < (idNumberDigits); i++) {
+	id = (id * 10 + separatedIdRandom[i]);
+}
+*/	
+return id;
 }
 	
 }

@@ -124,8 +124,7 @@ class PrimitivesTest {
 		int expected[] = {1, 2, 3, 4};
 		assertArrayEquals(expected,Numbers.getDigits(1234));
 	}
-	@Test
-	@Disabled	
+	@Test	
 	void getNumberFromDigitsTest() {
 		int expectedNumber = 1234;
 		
@@ -134,13 +133,20 @@ class PrimitivesTest {
 	
 	@Test
 	void VerifyNumberTest() {
-	int id = 123456782;
+	int id = 134572684;
 	assertTrue(IsraelIdentity.verify(id));
 	id = 123456783;
 	assertFalse(IsraelIdentity.verify(id));
 	id = 12344;
 	assertFalse(IsraelIdentity.verify(id));
 	}
+	
+	@Test
+	void generateRandomIdTest() {
+	int id = IsraelIdentity.generateRandomId();
+	assertTrue(IsraelIdentity.verify(id));
+	}
+	
 	
 }
 	
