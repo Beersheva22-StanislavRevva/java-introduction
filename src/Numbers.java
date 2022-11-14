@@ -63,5 +63,9 @@ static public boolean isHappyNumber(long number) {
 		
 		return res;
 	}
-}
 
+
+public static long getRandomNumber(long min, long max) {
+	return (long) (min + Math.random() * (max - min + 1));
+}
+}

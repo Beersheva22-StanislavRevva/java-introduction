@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class IsraelIdentity {
 
-private static int idNumberDigits = 9;
+private static final int N_DIGITS_ID = 9;
 
 
 /**
@@ -17,28 +17,47 @@ private static int idNumberDigits = 9;
 	
 	
 public static boolean verify(int id) {
-	int separatedId[];
-	int sum = 0;
-	if (Numbers.getNdigits(id) == idNumberDigits) {
-		separatedId = Numbers.getDigits(id);
-		for(int i = 0; i < idNumberDigits; i++) {
-			if (i % 2 > 0) {
-				if (separatedId[i] > 4)
-					{
-					sum += ((separatedId[i] * 2) % 10 + 1);
-					}
-				else sum += separatedId[i] * 2;
-		 	}
-			else sum += separatedId[i];
-		 }
-			
-		if (sum %10 == 0) 
-			return true;
+	
+	boolean res = false;
+	if (id > 0) {
+		int digits[] = Numbers.getDigits(id);
+		if (N_DIGITS_ID == digits.length) {
+			int controlSum = getControlSum(digits);
+			res = controlSum % 10 == 0;
+			}
 		
-		else return false;
-	}
-	else return false;
+		}
+		return res;
+
 }
+
+
+private static int getControlSum(int[] digits) {
+	
+	return sumEvenIndexes(digits) + sumOddIndexes(digits); 
+		
+	}
+
+private static int sumOddIndexes(int[] digits) {
+	int res = 0;
+	for (int i = 1; i < digits.length; i += 2) {
+		int digit = digits[i] * 2;
+		if (digit > 9) {
+			digit -= 9;
+		}
+		res += digit; 
+	}
+	return res;
+}
+
+private static int sumEvenIndexes(int[] digits) {
+	int res = 0;
+	for (int i = 0; i < digits.length; i += 2) {
+		res +=  digits[i]; 
+	}
+	return res;
+}
+
 
 
 /**
@@ -50,44 +69,31 @@ public static boolean verify(int id) {
 
 
 public static int generateRandomId() {
-int separatedIdRandom [] = new int [1];
-int sum = 0;
-int id = 0;
-int random = 0;
-int minDigit = 0;
-int maxDigit = 9;
-
-for(int i = 0; i < (idNumberDigits - 1); i++) {
-random = (int) ((minDigit + Math.random() * (maxDigit - minDigit -1)));
-separatedIdRandom [separatedIdRandom.length - 1] = random;
-separatedIdRandom = Arrays.copyOf(separatedIdRandom, (separatedIdRandom.length + 1));
-}
-
-while (separatedIdRandom[0] == 0) {
-	random = SportLotoApp.getUniqueRandomInt(0,10);
-	separatedIdRandom[0] = random;
-}
-
-for(int i = 0; i < (idNumberDigits - 1); i++) {
-	if (i % 2 > 0) {
-		if (separatedIdRandom[i] > 4)
-			sum += ((separatedIdRandom[i] * 2) % 10 + 1);
-			
-		else sum += separatedIdRandom[i] * 2;
-	}	
-	else sum += separatedIdRandom[i];
-	}
-
-if ((sum % 10) > 0)
-	separatedIdRandom[(idNumberDigits - 1)] =(10 - (sum % 10));
-
-id = Numbers.getNumberFromDigits(separatedIdRandom);
-
-/*for(int i=0; i < (idNumberDigits); i++) {
-	id = (id * 10 + separatedIdRandom[i]);
-}
-*/	
-return id;
-}
+	int digits[] = new int[N_DIGITS_ID - 1];
+	fillRandomDigits(digits);
+	int controlSum = getControlSum(digits);
+	int lastDigit = getLastDigit(controlSum) ;
+	int res = Numbers.getNumberFromDigits(digits);
+	res = res * 10 + lastDigit;
 	
+	return res;
+}
+
+private static int getLastDigit(int controlSum) {
+	int rem = controlSum % 10;
+	int res = 0;
+	if(rem != 0) {
+		res = 10 - rem;
+	}
+	return res;
+	
+}
+
+private static void fillRandomDigits(int[] digits) {
+	digits[0] = (int) Numbers.getRandomNumber(1, 9);
+	for(int i = 1; i < digits.length; i++) {
+		digits[i] = (int) Numbers.getRandomNumber(0, 9);
+	}
+	
+}
 }

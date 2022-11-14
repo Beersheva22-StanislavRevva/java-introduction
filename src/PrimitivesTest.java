@@ -124,7 +124,8 @@ class PrimitivesTest {
 		int expected[] = {1, 2, 3, 4};
 		assertArrayEquals(expected,Numbers.getDigits(1234));
 	}
-	@Test	
+	@Test
+	@Disabled
 	void getNumberFromDigitsTest() {
 		int expectedNumber = 1234;
 		
@@ -132,6 +133,7 @@ class PrimitivesTest {
 	}
 	
 	@Test
+	@Disabled
 	void VerifyNumberTest() {
 	int id = 134572684;
 	assertTrue(IsraelIdentity.verify(id));
@@ -142,11 +144,71 @@ class PrimitivesTest {
 	}
 	
 	@Test
+	@Disabled
 	void generateRandomIdTest() {
 	int id = IsraelIdentity.generateRandomId();
 	assertTrue(IsraelIdentity.verify(id));
 	}
 	
+	@Test
+	void binarySearchRepeatedNumberTest() {
+	int	 ar1[] = { 1, 1, 1 };
+	int	 ar2[] = { 1, 2, 3, 4, 5, 6, 7, 10, 10, 10, 10 };
+	int number = 1;
+	int expectedIndex = 0;
+	assertEquals(expectedIndex, MyArrays.binarySearchRepeatedNumber(ar1, number));
+	number = 10;
+	expectedIndex = 7;
+	assertEquals(expectedIndex, MyArrays.binarySearchRepeatedNumber(ar2, number));
+	}
 	
-}
+	@Test
+	void isOneSwapTestFalse() {
+	int ar1[] = { 1, 2, 3, 10, 1, 5, 6 };
+	int ar2[] = { 1, 2, 3, 4, 5, 10 };
+	int ar3[] = { 5, 1, 2, 4, 6, 10 };
+	int ar4[] = { 1, 5, 2, 4, 3, 10 };
+	int ar5[] = { 1, 3, 2, 5, 4, 10, 8 };
+	int ar6[] = {1, 3, 20, 4, 5, 6, 10};
+	int ar7[] = {1, 3, 20, 4, 5, 11, 2};
+	assertFalse(MyArrays.isOneSwapForSorted(ar1));
+	assertFalse(MyArrays.isOneSwapForSorted(ar2));
+	assertFalse(MyArrays.isOneSwapForSorted(ar3));
+	assertFalse(MyArrays.isOneSwapForSorted(ar4));
+	assertFalse(MyArrays.isOneSwapForSorted(ar5));
+	assertFalse(MyArrays.isOneSwapForSorted(ar6));
+	assertFalse(MyArrays.isOneSwapForSorted(ar7));
+
+	}
+
+	@Test
+	void isOneSwapTestTrue() {
+	int ar1[] = { 10, 2, 3, 4, 1 };
+	int ar2[] = { 1, 2, 4, 3, 5, 10 };
+	int ar3[] = { 1, 2, 3, 10, 5, 4 };
+	int ar4[] = { 1, 5, 3, 4, 2, 10 };
+	int ar5[] = { 1, 2, 3, 4, 10, 5 };
+	int ar6[] = { 2, 1, -3, 4, 5, 10 };
+	int ar7[] = { 3, 2, 1, 4, 5, 6 };
+	assertTrue(MyArrays.isOneSwapForSorted(ar1));
+	assertTrue(MyArrays.isOneSwapForSorted(ar2));
+	assertTrue(MyArrays.isOneSwapForSorted(ar3));
+	assertTrue(MyArrays.isOneSwapForSorted(ar4));
+	assertTrue(MyArrays.isOneSwapForSorted(ar5));
+	assertTrue(MyArrays.isOneSwapForSorted(ar6));
+	assertTrue(MyArrays.isOneSwapForSorted(ar7));
+
+	}
+	
+	@Test
+	void bubbleSortTest() {
+	
+	int ar1[] = { 10, 2, 3, 4, 1 };
+	int ar2[] = { 1, 2, 3, 4, 10 };
+	
+	assertArrayEquals(ar2, MyArrays.bubbleSort(ar1));
+	}
+	
+}	
+
 	
