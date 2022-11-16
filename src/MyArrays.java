@@ -206,4 +206,25 @@ public static int binarySearch(int arraySorted[], int number) {
 			
 	return arrayUnsorted;
 	}
+	
+/**
+ * 	
+ * @param array of short positive numbers
+ * @param sum
+ * @return true if array contains 2 numbers, sum of which equals a given sum
+ */
+
+	public static boolean isSum2(short array[], short sum) {
+		int i = 0, j = array.length - 1;
+		Arrays.sort(array);
+		 while (i < j) {
+			 int sumN = array[i] + array[j];
+			 if (sumN == sum)
+		            return true;
+		        if (sumN < sum) i++; else j--;
+		 }
+		
+		return false;
+	}
+	
 }
