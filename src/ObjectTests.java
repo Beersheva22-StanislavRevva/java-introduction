@@ -1,5 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 class ObjectTests {
@@ -39,9 +40,11 @@ class ObjectTests {
 	}
 	
 	@Test
+	@Disabled
 	void sortStringNumbers () {
 	String[] str = {"127", "18", "1", "1", "-1"};
-	assertArrayEquals(new String[] { "-1", "1", "1", "18", "127"}, Strings.sortStringNumbers(str));
+	Strings.sortStringNumbers(str);
+	assertArrayEquals(new String[] { "-1", "1", "1", "18", "127"}, str);
 	
 	}
 }
