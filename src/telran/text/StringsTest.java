@@ -74,7 +74,7 @@ void computeExpressionTest() {
 	assertTrue(Double.isNaN(computeArithmeticExpression("2 # 2 ++ 10", new double[] {0, 0}, new String[] {"a", "c"})));
 	assertTrue(Double.isNaN(computeArithmeticExpression("(2 ( + 2 + 1 * 2 + 0.5)", new double[] {0, 0}, new String[] {"a", "c"})));
 	assertEquals(10.5,computeArithmeticExpression("2 + a + c * 2 + 0.5", new double[] {2, 1},	new String[] {"a", "c"}));
-	//assertTrue(Double.isNaN(computeArithmeticExpression("a + 2 + c * 2 + d23", new double[] {2, 1}, new String[] {"a", "c"})));
+	assertTrue(Double.isNaN(computeArithmeticExpression("a + 2 + c * 2 + d23", new double[] {2, 1}, new String[] {"a", "c"})));
 }
 
 }

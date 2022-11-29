@@ -1,5 +1,7 @@
 package telran.text;
 
+import java.util.Arrays;
+
 public class Strings {
 	
 /*
@@ -143,8 +145,13 @@ public static String arithmeticExpression() {
 }
 
 private static String operand() {
+	String numberExp = numberExp();
+	String variableExp = javaNameExp();
+	return String.format("(\\(*(%s|%s)\\)*)", numberExp, variableExp);
+}
 
-	return "(\\d+\\.?\\d*|\\.\\d+|[a-zA-Z$][\\w$]*|_[\\w$]+)";
+private static String numberExp() {
+	return "(\\d+\\.?\\d*|\\.\\d+)";
 }
 
 public static boolean isArithmeticExpression(String expression) {
@@ -153,7 +160,6 @@ public static boolean isArithmeticExpression(String expression) {
 }
 
 private static String operator() {
-	
 	return "([-+/*%])";
 }
 
@@ -170,6 +176,8 @@ public static double computeArithmeticExpression(String expression, double value
 	// 10 (* 2)
 	// 10 * 2 (())
 	Double res = Double.NaN;
+	names = getUpdatedNames(names);
+	values = getUpdatedValues(values, names);
 	int valuesIndex = 0;
 	if (isArithmeticExpression(expression) && checkBraces(expression)) {
 		expression = expression.replaceAll("[\\s()]+", "");
@@ -191,14 +199,30 @@ public static double computeArithmeticExpression(String expression, double value
 	return res;
 }
 
-private static double getOperandValue(String operand, double[] values, String[] names, int valuesIndex) {
-	// FIXME for possible variable names
-	double res = 0;
-	if (operand.matches("(\\d+\\.?\\d*|\\.\\d+)")) {
-		res = Double.parseDouble(operand);
+private static double[] getUpdatedValues(double[] values, String[] names) {
+	if (values == null) {
+		values = new double[0];
 	}
-	else {
-		res = values[valuesIndex];
+	if (values.length != names.length) {
+		values = Arrays.copyOf(values, names.length); 
+	}
+	return values;
+}
+
+private static String[] getUpdatedNames(String[] names) {
+	
+	return names == null ? new String [0] : names;
+}
+
+private static Double getOperandValue(String operand, double[] values, String[] names, int valuesIndex) {
+	Double res = Double.NaN;
+	if(operand.matches(numberExp())) {
+		res = Double.parseDouble(operand);
+	} else {
+		int index = Arrays.binarySearch(names, operand);
+		if (index > -1) {
+			res = values[index];
+		}
 	}
 	return res;
 }
@@ -218,23 +242,21 @@ private static Double computeOperation(double operand1, double operand2, String 
 }
 
 
-private static boolean checkBraces(String expression) {
-	int lenght = expression.length();
+private static boolean checkBraces(String expression) {	
 	int count = 0;
-	boolean res = true;
-	for(int i=0; i < lenght; i++) {
-		if (expression.charAt(i) == '(') {
+	int index = 0;
+	int length = expression.length();
+	while(index < length && count > -1) {
+		char symb = expression.charAt(index);
+		if (symb == '(') {
 			count++;
-			}
-		if (expression.charAt(i) == ')') {
+		} else if (symb == ')') {
 			count--;
-		}
+			}
+		index++;
 	}
-	if ( count !=0 ) {
-		res = false;
-	}
-	return res;
-}
+	return count == 0;	
+}	
 }
 
 
