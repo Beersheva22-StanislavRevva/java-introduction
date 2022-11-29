@@ -1,7 +1,10 @@
+package telran.text;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import static telran.text.Strings.*;
+
+import org.junit.jupiter.api.*;
 
 class StringsTest {
 String word="yellow";
@@ -42,19 +45,36 @@ void javaVariableTest() {
 }
 
 @Test
-void ip4OcteTest() {
-	assertTrue("000".matches(Strings.ip4Octe()));
-	assertTrue("255".matches(Strings.ip4Octe()));
-	assertFalse("256".matches(Strings.ip4Octe()));
-	assertFalse("311".matches(Strings.ip4Octe()));
+@Disabled
+void ipV4OctetTest() {
+	assertTrue("000".matches(Strings.ipV4Octet()));
+	assertTrue("255".matches(Strings.ipV4Octet()));
+	assertFalse("256".matches(Strings.ipV4Octet()));
+	assertFalse("311".matches(Strings.ipV4Octet()));
 }
 
 @Test
-void ipV4() {
-	assertTrue("000.168.001.000".matches(Strings.ipV4()));
-	assertTrue("000.168.001.000".matches(Strings.ipV4()));
-	assertFalse("256.168.001.000".matches(Strings.ipV4()));
-	assertFalse("311.168.001.000".matches(Strings.ipV4()));
+@Disabled
+void ipV4TestTrue() {
+	assertTrue("1.2.3.4".matches(ipV4()));
+	assertTrue("199.249.255.209".matches(ipV4()));
+	assertTrue("99.99.99.05".matches(ipV4()));
+}
+@Test
+@Disabled
+void ipV4TestFasle() {
+	assertFalse("*.10.10.10".matches(ipV4()));
+	assertFalse("256.19.10.10".matches(ipV4()));
+	assertFalse("300.19.10.10".matches(ipV4()));
+	
+}
+@Test
+void computeExpressionTest() {
+	assertEquals(10.5, computeArithmeticExpression("(2 + 2 + ( 1 ) * 2 + 0.5)", new double[] {0, 0}, new String[] {"a", "c"}));
+	assertTrue(Double.isNaN(computeArithmeticExpression("2 # 2 ++ 10", new double[] {0, 0}, new String[] {"a", "c"})));
+	assertTrue(Double.isNaN(computeArithmeticExpression("(2 ( + 2 + 1 * 2 + 0.5)", new double[] {0, 0}, new String[] {"a", "c"})));
+	assertEquals(10.5,computeArithmeticExpression("2 + a + c * 2 + 0.5", new double[] {2, 1},	new String[] {"a", "c"}));
+	//assertTrue(Double.isNaN(computeArithmeticExpression("a + 2 + c * 2 + d23", new double[] {2, 1}, new String[] {"a", "c"})));
 }
 
 }
